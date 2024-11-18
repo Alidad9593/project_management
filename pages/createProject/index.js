@@ -6,20 +6,8 @@ export default function CreateProject() {
   const [selectedPriority, setSelectedPriority] = React.useState(null);
 
   return (
-    <div className="flex flex-col lg:flex-row h-screen bg-gray-100">
+    <div className="flex bg-gray-100">
       {/* Sidebar */}
-      <aside className="w-full lg:w-64 bg-white shadow-lg p-5">
-        <div className="flex justify-between items-center lg:block">
-          <h1 className="text-2xl font-bold mb-0 lg:mb-8">TaskFlow</h1>
-          {/* Mobile menu button - you might want to add a hamburger menu here */}
-        </div>
-        <nav className="hidden lg:flex flex-col space-y-4">
-          <a href="#" className="text-gray-700 hover:text-gray-900">Dashboard</a>
-          <a href="#" className="text-gray-700 hover:text-gray-900">Projects</a>
-          <a href="#" className="text-gray-700 hover:text-gray-900">Employee</a>
-          <a href="#" className="text-gray-700 hover:text-gray-900">Settings</a>
-        </nav>
-      </aside>
       
       {/* Main Content */}
       <div className="flex-1 p-4 md:p-6 lg:p-10 flex flex-col items-center justify-center">
