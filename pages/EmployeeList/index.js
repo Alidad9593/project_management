@@ -1,16 +1,44 @@
 // pages/employee-list.js
 import React from 'react';
 import classes from './EmployeeList.module.css';
+import Navbar from '../../components/Navbar/Navbar';
+import { useState , useEffect } from 'react';
 
 export default function EmployeeList() {
   // Dummy data for employees
-  const employees = [
-    { id: 'UID123', name: 'Alice', email: 'AliceJohnson@gmail.com' },
-    { id: 'UID678', name: 'Brian', email: 'BrianSmith@gmail.com' },
-    { id: 'UID112', name: 'Clara Adams', email: 'ClaraAdams@gmail.com' },
-  ];
+  // const employees = [
+  //   { id: 'UID123', name: 'Alice', email: 'AliceJohnson@gmail.com' },
+  //   { id: 'UID678', name: 'Brian', email: 'BrianSmith@gmail.com' },
+  //   { id: 'UID112', name: 'Clara Adams', email: 'ClaraAdams@gmail.com' },
+  // ];
+
+  const [employees , setEmployees] = useState([]);
+
+  useEffect(() => {
+    const fetchEmployees = async () => {
+      try {
+        const response = await fetch('/api/employee'); // API endpoint
+        if (!response.ok) throw new Error('Failed to fetch employees');
+        const data = await response.json();
+        if(!data){
+          return(
+            <div>
+              <p>Loading...</p>
+            </div>
+          )
+        }
+        setEmployees(data); // Update state with fetched data
+      } catch (error) {
+        console.error('Error fetching employees:', error);
+      }
+    };
+
+    fetchEmployees();
+  }, []);
 
   return (
+    <>
+    <Navbar />
     <div className={classes.container}>
     <div className="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
       <h1 className="text-xl font-bold mb-4 flex items-center">
@@ -43,5 +71,6 @@ export default function EmployeeList() {
       </table>
     </div>
     </div>
+    </>
   );
 }
