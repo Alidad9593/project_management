@@ -1,7 +1,6 @@
 // pages/employee-list.js
 import React from 'react';
 import classes from './EmployeeList.module.css';
-import Navbar from '../../components/Navbar/Navbar';
 import { useState , useEffect } from 'react';
 
 export default function EmployeeList() {
@@ -38,7 +37,6 @@ export default function EmployeeList() {
 
   return (
     <>
-    <Navbar />
     <div className={classes.container}>
     <div className="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
       <h1 className="text-xl font-bold mb-4 flex items-center">

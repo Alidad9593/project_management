@@ -1,11 +1,9 @@
 // pages/add-employee.js
 import React from 'react';
-import Navbar from '../../components/Navbar/Navbar';
 
 export default function AddEmployee() {
   return (
     <>
-    <Navbar />
     <div className="container mx-auto p-8 bg-gray-100 min-h-screen flex flex-col items-center">
       <div className="w-full max-w-4xl bg-white p-8 rounded-lg shadow-lg mb-6">
         <h2 className="text-2xl font-bold mb-4">Add New Employee</h2>
