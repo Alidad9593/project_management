@@ -1,0 +1,87 @@
+/* Center the form */
+.vantaContainer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 40px auto;
+    width: 500px;
+    height: 600px;
+    
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #132931;
+    color: white;
+}
+@media (max-width: 600px) {
+    .card {
+        width: 70%; /* Adjust width for small screens */
+        height: 80%; /* Adjust height for small screens */
+        margin: 20px auto; /* Adjust margin for small screens */
+    }
+}
+
+.button{
+    background-color: #25bdf9;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    width: 150px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 0;
+    &:hover {
+        background-color: #2a5569;
+    }
+}
+
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    
+}
+
+/* Style the list */
+.form ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Style the input fields */
+.form input {
+    width: 300px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 16px;
+    color: black;
+}
+
+/* Optional styling for the label */
+.form label {
+    font-size: 18px;
+    font-weight: bold;
+   
+}
+
+/* Style the show password checkbox */
+.showPasswordContainer {
+    display: block;
+    align-items: left;
+    font-size: 16px;
+    margin: 10px 0;
+}

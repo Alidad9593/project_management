@@ -1,0 +1,25 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(190, 190, 190);
+    min-height: 100vh;
+}
+
+
+.button{
+    background-color: #25bdf9;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    width: 100px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 0;
+    margin-left: 10px;
+    &:hover {
+        background-color: #2a5569;
+    }
+}
