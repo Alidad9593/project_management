@@ -41,7 +41,7 @@
 //                             checked={showPassword}
 //                             onChange={showPasswordHandler}
 //                         />
-                        
+
 //                     </li>
 //                 </ul>
 //             </form>
@@ -53,14 +53,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import classes from './Loginpage.module.css';
 import * as THREE from 'three';
+import { useRouter } from 'next/router';
 
 export default function Loginpage() {
     const [showPassword, setShowPassword] = useState(false);
     const [vantaEffect, setVantaEffect] = useState(null);
     const vantaRef = useRef(null);
+    const username = useRef(null);
+    const password = useRef(null);
+    const r = useRouter();
 
     // Toggle password visibility
-    const showPasswordHandler = () => {    
+    const showPasswordHandler = () => {
         setShowPassword((prevState) => !prevState);
     };
 
@@ -84,7 +88,7 @@ export default function Loginpage() {
                             scale: 1.0,
                             scaleMobile: 1.0,
                             // color: 0x26d7cc,
-                            backgroundColor: "#000000", 
+                            backgroundColor: "#000000",
                             THREE: THREE, // Pass the THREE library to Vanta
                         })
                     );
@@ -102,12 +106,42 @@ export default function Loginpage() {
         loadVantaScript();
     }, [vantaEffect]);
 
+
+    // Login handler
+    function Loginhandler() {
+        event.preventDefault();
+        const enteredUsername = username.current.value;
+        const enteredPassword = password.current.value;
+
+        // API call to login
+        fetch('/api/login', {
+            method: 'POST',
+            body: JSON.stringify({ username: enteredUsername, password: enteredPassword }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => response.json()) // Parse the response body to JSON
+            .then((data) => {
+                if (data.error) {
+                    alert(data.error) // Throw error if the response contains an error message
+                }
+                else {
+                    console.log(data);
+                    //alert(data.message);
+                    r.push('/EmployeeList');
+                }
+            })
+            .catch((error) => {
+                console.error('Login failed:', error);
+                alert(error.message);
+            });
+    }
     return (
         <div ref={vantaRef} className={classes.vantaContainer}>
             <div className={classes.card}>
                 {/* <h1>Login Page</h1> */}
                 <form className={classes.form}>
-                <h1 style={{ fontSize: "30px" }}>Login</h1>
+                    <h1 style={{ fontSize: "30px" }}>Login</h1>
 
                     <ul>
                         <li>
@@ -117,6 +151,7 @@ export default function Loginpage() {
                                 id="username"
                                 placeholder="Your username"
                                 aria-label="Your username"
+                                ref={username}
                             />
                         </li>
                         <li>
@@ -126,10 +161,11 @@ export default function Loginpage() {
                                 id="password"
                                 placeholder="Your password"
                                 aria-label="Your password"
+                                ref={password}
                             />
                         </li>
                         <li className={classes.showPasswordContainer}>
-                            
+
                             <label htmlFor="showPassword">Show Password</label>
                             <input
                                 type="checkbox"
@@ -139,9 +175,9 @@ export default function Loginpage() {
                             />
                         </li>
                     </ul>
-                    <button className= {classes.button}>Login</button>
+                    <button onClick={Loginhandler} className={classes.button}>Login</button>
                 </form>
-                
+
             </div>
         </div>
     );
