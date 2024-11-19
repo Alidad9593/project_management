@@ -1,5 +1,5 @@
 // pages/employee-list.js
-import React from 'react';
+import React, { useRef } from 'react';
 import classes from './EmployeeList.module.css';
 import { useState , useEffect } from 'react';
 
@@ -13,6 +13,7 @@ export default function EmployeeList() {
 
   const [employees , setEmployees] = useState([]);
 
+  
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
