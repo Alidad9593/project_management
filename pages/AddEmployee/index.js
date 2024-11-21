@@ -10,6 +10,7 @@ export default function AddEmployee() {
   const start_date = useRef();
   const username = useRef();
   const password = useRef();
+  const id = useRef();
 
   function AddEmployeehandler() {
     event.preventDefault();
@@ -20,6 +21,7 @@ export default function AddEmployee() {
     const enteredStart_date = start_date.current.value;
     const enteredUsername = username.current.value;
     const enteredPassword = password.current.value;
+    const opt = 1; // 1 => add employee
 
     fetch('/api/employee', {
       method: 'POST',
@@ -31,6 +33,7 @@ export default function AddEmployee() {
         start_date: enteredStart_date,
         username: enteredUsername,
         password: enteredPassword,
+        option: opt,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -63,6 +66,15 @@ export default function AddEmployee() {
       <div className="w-full max-w-4xl bg-white p-8 rounded-lg shadow-lg mb-6">
         <h2 className="text-2xl font-bold mb-4">Add New Employee</h2>
         <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* <div>
+            <label className="block text-gray-700 font-semibold mb-1">Employee ID</label>
+            <input
+              type="text"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none"
+              placeholder="Employee ID" 
+              ref={id}
+            />
+          </div> */}
           <div>
             <label className="block text-gray-700 font-semibold mb-1">Full Name</label>
             <input

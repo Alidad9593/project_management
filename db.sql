@@ -19,14 +19,16 @@ CREATE TABLE project (
 drop table project;
 
 drop table employee;
+ALTER TABLE employee
+ADD COLUMN start_date DATE NOT NULL DEFAULT CURRENT_DATE;
 
 
 -- Insert dummy data into the employee table
-INSERT INTO employee (name, role, email, phone_number, username, password) VALUES
-('Alice Johnson', 'Software Developer', 'alice.johnson@example.com', 1234567890, 'alice123', 'password123'),
-('Bob Smith', 'Project Manager', 'bob.smith@example.com', 9876543210, 'bobsmith', 'securepass'),
-('Charlie Brown', 'Quality Analyst', 'charlie.brown@example.com', 1122334455, 'charlieb', 'test1234'),
-('Diana Prince', 'UI/UX Designer', 'diana.prince@example.com', 9988776655, 'dianap', 'designme'),
-('Ethan Hunt', 'DevOps Engineer', 'ethan.hunt@example.com', 7766554433, 'ethanh', 'mission123');
+INSERT INTO employee (name, role, email, phone_number, username, password, start_date) VALUES
+('Alice Johnson', 'Software Developer', 'alice.johnson@example.com', 1234567890, 'alice123', 'password123', '2022-01-15'),
+('Bob Smith', 'Project Manager', 'bob.smith@example.com', 9876543210, 'bobsmith', 'securepass', '2021-03-10'),
+('Charlie Brown', 'Quality Analyst', 'charlie.brown@example.com', 1122334455, 'charlieb', 'test1234', '2022-07-25'),
+('Diana Prince', 'UI/UX Designer', 'diana.prince@example.com', 9988776655, 'dianap', 'designme', '2023-02-20'),
+('Ethan Hunt', 'DevOps Engineer', 'ethan.hunt@example.com', 7766554433, 'ethanh', 'mission123', '2020-11-05');
 
 Select* from employee

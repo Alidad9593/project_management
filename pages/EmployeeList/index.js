@@ -12,7 +12,7 @@ export default function EmployeeList() {
   // ];
 
   const [employees , setEmployees] = useState([]);
-
+  const [refresh, setRefresh] = useState(false);  
   
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -28,13 +28,38 @@ export default function EmployeeList() {
           )
         }
         setEmployees(data); // Update state with fetched data
+        setRefresh(true);
       } catch (error) {
         console.error('Error fetching employees:', error);
       }
     };
 
     fetchEmployees();
-  }, []);
+  }, [refresh]);
+
+  function Deletehandler(eid){
+    if(!window.confirm("Are you sure you want to delete this employee?")){
+      return;
+    }
+    const opt = 2 // 2 => Delete Employee
+    fetch('/api/employee/',{
+      method: 'DELETE',
+      body: JSON.stringify({ id: eid, option: opt }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((response) => response.json()).then((data) => {
+      if(data.error){
+        alert(data.error);
+      }
+      else{
+        console.log(data);
+        alert(data.message);
+        setRefresh(!refresh);
+      }
+    })
+
+  }
 
   return (
     <>
@@ -61,8 +86,8 @@ export default function EmployeeList() {
               </td>
               <td className="py-2 px-4 border-b">{employee.id}</td>
               <td className="py-2 px-4 border-b">
-                <button className={classes.button}>Edit</button>
-                <button className={classes.button}>Delete</button>
+                {/* <button onClick = {Edithandler(employee.id)} className={classes.button}>Edit</button> */}
+                <button onClick={() => Deletehandler(employee.id)} className={classes.button}>Delete</button>
               </td>
             </tr>
           ))}

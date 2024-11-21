@@ -108,7 +108,7 @@ export default function Loginpage() {
 
 
     // Login handler
-    function Loginhandler() {
+    function Loginhandler(event) {
         event.preventDefault();
         const enteredUsername = username.current.value;
         const enteredPassword = password.current.value;
