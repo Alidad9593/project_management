@@ -3,7 +3,7 @@ import { query } from '../../lib/db';
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
-      const result = await query('SELECT id, name, email FROM employee');
+      const result = await query('SELECT id, name, email, role, phone_number FROM employee');
       res.status(200).json(result.rows); // Send the employee data as JSON
     } catch (error) {
       console.error('Error fetching employees:', error);
@@ -52,5 +52,27 @@ export default async function handler(req, res) {
       console.error('Error deleting employee:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
+  }
+
+  else if(req.body.option === 3)  //Edit Employee
+  {
+      const { id, email, phone_number, role} = req.body;
+      try {
+        // Update the employee record
+        const result = await query(
+          `UPDATE employee 
+           SET email = $1, phone_number = $2, role = $3
+           WHERE id = $4 RETURNING *`,
+          [email, phone_number, role, id]
+        );
+        if (result.rowCount > 0) {
+          res.status(200).json({ message: 'Employee updated successfully', employee: result.rows[0] });
+        } else {
+          res.status(404).json({ error: 'Employee not found' });
+        }
+      } catch (error) {
+        console.error('Error updating employee:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
   }
 }

@@ -21,6 +21,7 @@ drop table project;
 drop table employee;
 ALTER TABLE employee
 ADD COLUMN start_date DATE NOT NULL DEFAULT CURRENT_DATE;
+--TRUNCATE TABLE employee RESTART IDENTITY CASCADE;
 
 
 -- Insert dummy data into the employee table
