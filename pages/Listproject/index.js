@@ -1,53 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
-// Modal Component
-const ProjectModal = ({ project, onClose }) => {
-  const [assignments, setAssignments] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchAssignments = async () => {
-      if (project) {
-        try {
-          const response = await fetch(`/api/project_assignment?project_id=${project.project_id}`);
-          if (!response.ok) {
-            throw new Error('Failed to fetch project assignments');
-          }
-          const data = await response.json();
-          setAssignments(data); // Set the assignments state
-        } catch (error) {
-          setError(error.message);
-        }
-      }
-    };
-
-    fetchAssignments();
-  }, [project]); // Fetch assignments whenever the project changes
-
-  if (!project) return null;
-
-  return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg p-6 shadow-lg max-w-md w-full">
-        <h2 className="text-xl font-bold mb-4">{project.project_name}</h2>
-        <p><strong>Description:</strong> {project.description}</p>
-        <p><strong>Due Date:</strong> {project.due_date}</p>
-        <p><strong>Assignments:</strong></p>
-        <ul>
-          {assignments.length > 0 ? (
-            assignments.map((assignment) => (
-              <li key={assignment.employee_id}>Employee ID: {assignment.employee_id}</li>
-            ))
-          ) : (
-            <li>No assignments found.</li>
-          )}
-        </ul>
-        {error && <p className="text-red-500">{error}</p>} {/* Display error if any */}
-        <button className="mt-4 text-red-500" onClick={onClose}>Close</button>
-      </div>
-    </div>
-  );
-};
+import Projectdetail from '@/components/Projectdetail/Projectdetail'; // Import the new component
 
 // ProjectList Component
 const ProjectList = () => {
@@ -130,7 +82,6 @@ const ProjectList = () => {
               <td className="py-2 px-4 border-b">{project.due_date}</td>
               <td className="py-2 px-4 border-b">
                 <button className="text-blue-500 hover:underline" onClick={() => handleViewClick(project)}>View</button>
-                <button className="text-blue-500 hover:underline ml-4">Edit</button>
                 <button className="text-red-500 hover:underline ml-4" onClick={() => handleDeleteClick(project.project_id)}>Delete</button>
               </td>
             </tr>
@@ -139,7 +90,7 @@ const ProjectList = () => {
       </table>
 
       {/* Modal for viewing project details */}
-      <ProjectModal project={selectedProject} onClose={handleCloseModal} />
+      <Projectdetail project={selectedProject} onClose={handleCloseModal} />
     </div>
   );
 };
