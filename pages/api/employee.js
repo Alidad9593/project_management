@@ -75,4 +75,20 @@ export default async function handler(req, res) {
         res.status(500).json({ error: 'Internal Server Error' });
       }
   }
+  else if(req.body.option === 4)  //Get specific employee
+  {
+    const { id } = req.body;
+    try {
+      // Query the database for the employee with the given ID
+      const result = await query('SELECT id, name, role FROM employee WHERE id = $1', [id]);
+      if (result.rows.length > 0) {
+        res.status(200).json({employee: result.rows[0]});
+      } else {
+        res.status(404).json({ error: 'Employee not found' });
+      }
+    } catch (error) {
+      console.error('Error fetching employee:', error);
+      res.status(500).json({ error: 'Internal Server}) Error' });
+    }
+  }
 }

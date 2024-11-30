@@ -9,16 +9,12 @@ CREATE TABLE employee (
 	password VARCHAR(20) NOT NULL
 );
 
--- Create the project table
-CREATE TABLE project (
-    project_id SERIAL PRIMARY KEY,        -- Auto-incrementing unique ID for each project
-    project_name VARCHAR(150) NOT NULL,   -- Name of the project
-    employee_id INT,                      -- Foreign key referencing the employee table
-    CONSTRAINT fk_employee FOREIGN KEY (employee_id) REFERENCES employee (id)
-);
 drop table project;
 
 drop table employee;
+
+drop table project_assignment;
+
 ALTER TABLE employee
 ADD COLUMN start_date DATE NOT NULL DEFAULT CURRENT_DATE;
 --TRUNCATE TABLE employee RESTART IDENTITY CASCADE;
@@ -61,4 +57,25 @@ CREATE TABLE project_assignment (
 );
 
 select * from project_assignment 
-DELETE FROM project_assignment WHERE project_id = 4
+--DELETE FROM project_assignment WHERE project_id = 4
+
+CREATE TABLE kanban_board (
+    kanban_id SERIAL PRIMARY KEY,                -- Auto-incrementing unique ID for each Kanban entry
+    project_id INT NOT NULL,                     -- Foreign key referencing the project table
+    employee_id INT NOT NULL,                    -- Foreign key referencing the employee table
+    status VARCHAR(20) NOT NULL CHECK (status IN ('To Do', 'In Progress', 'Done')), -- Task status
+    CONSTRAINT fk_kanban_project FOREIGN KEY (project_id) REFERENCES project (project_id) ON DELETE CASCADE,
+    CONSTRAINT fk_kanban_employee FOREIGN KEY (employee_id) REFERENCES employee (id) ON DELETE CASCADE
+);
+
+-- Insert dummy data into the kanban_board table
+INSERT INTO kanban_board (project_id, employee_id, status) VALUES
+(1, 1, 'To Do'),  -- Alice assigned to Website Redesign (project_id = 1) with 'To Do' status
+(4, 2, 'In Progress'),  -- Bob assigned to Website Redesign with 'In Progress' status
+(4, 3, 'Done'),  -- Charlie assigned to Mobile App Development (project_id = 2) with 'Done' status
+(3, 1, 'To Do'),  -- Diana assigned to Cloud Migration (project_id = 3) with 'To Do' status
+(1, 5, 'In Progress');  -- Ethan assigned to Mobile App Development with 'In Progress' status
+
+
+Select* from kanban_board;
+drop table kanban_board;

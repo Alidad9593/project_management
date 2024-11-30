@@ -128,7 +128,7 @@ export default function Loginpage() {
                 else {
                     console.log(data);
                     //alert(data.message);
-                    r.push('/EmployeeList');
+                    r.push("/Employee/" + data.emp_id);
                 }
             })
             .catch((error) => {
